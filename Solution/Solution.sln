@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyPassApp", "KeyPassApp\KeyPassApp.csproj", "{396694B8-04C0-4AD7-A5C2-0544C30F079B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyPassUserInterface", "KeyPassUserInterface\KeyPassUserInterface.csproj", "{22CEC220-0DDF-4044-AEBF-37D5ED6596EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyPassBusiness", "KeyPassBusiness\KeyPassBusiness.csproj", "{2751A803-23F7-4B61-929A-E5B32D03D761}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyPassInfoObjects", "KeyPassInfoObjects\KeyPassInfoObjects.csproj", "{0AB77C77-760A-4B43-8F66-42CD1492E79D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{396694B8-04C0-4AD7-A5C2-0544C30F079B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{396694B8-04C0-4AD7-A5C2-0544C30F079B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{396694B8-04C0-4AD7-A5C2-0544C30F079B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{396694B8-04C0-4AD7-A5C2-0544C30F079B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{396694B8-04C0-4AD7-A5C2-0544C30F079B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{396694B8-04C0-4AD7-A5C2-0544C30F079B}.Release|x86.ActiveCfg = Release|Any CPU
+		{22CEC220-0DDF-4044-AEBF-37D5ED6596EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22CEC220-0DDF-4044-AEBF-37D5ED6596EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22CEC220-0DDF-4044-AEBF-37D5ED6596EA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{22CEC220-0DDF-4044-AEBF-37D5ED6596EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22CEC220-0DDF-4044-AEBF-37D5ED6596EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22CEC220-0DDF-4044-AEBF-37D5ED6596EA}.Release|x86.ActiveCfg = Release|x86
+		{22CEC220-0DDF-4044-AEBF-37D5ED6596EA}.Release|x86.Build.0 = Release|x86
+		{2751A803-23F7-4B61-929A-E5B32D03D761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2751A803-23F7-4B61-929A-E5B32D03D761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2751A803-23F7-4B61-929A-E5B32D03D761}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2751A803-23F7-4B61-929A-E5B32D03D761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2751A803-23F7-4B61-929A-E5B32D03D761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2751A803-23F7-4B61-929A-E5B32D03D761}.Release|x86.ActiveCfg = Release|Any CPU
+		{0AB77C77-760A-4B43-8F66-42CD1492E79D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB77C77-760A-4B43-8F66-42CD1492E79D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB77C77-760A-4B43-8F66-42CD1492E79D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0AB77C77-760A-4B43-8F66-42CD1492E79D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB77C77-760A-4B43-8F66-42CD1492E79D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB77C77-760A-4B43-8F66-42CD1492E79D}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
