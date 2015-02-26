@@ -83,7 +83,6 @@ namespace KeyPassUserInterface
 
 		}
 
-
 		private void OnAddEntry(object sender, EventArgs e)
 		{
 			keyListControl.AddKeyDialog();
