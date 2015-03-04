@@ -55,7 +55,6 @@ namespace KeyPassUserInterface
 		{
 			AddKeyDialog();
 
-
 		}
 
 
@@ -77,12 +76,7 @@ namespace KeyPassUserInterface
 			if (addEditKeyForm.ShowDialog() != DialogResult.OK)
 				return;
 
-			Key key = new Key();
-			key.Title = addEditKeyForm.textBoxTitle.Text;
-			key.UserName = addEditKeyForm.textBoxUserName.Text;
-			key.Password = addEditKeyForm.textBoxPassword.Text;
-			key.URL = addEditKeyForm.textBoxURL.Text;
-			key.Notes = addEditKeyForm.textBoxNotes.Text;
+			Key key = parseFormToKey(addEditKeyForm);
 
 
 			Group group = (Group)addEditKeyForm.comboBoxGroups.SelectedItem;
@@ -102,34 +96,45 @@ namespace KeyPassUserInterface
 			Key oldKey = (Key)listViewKeys.SelectedItems[0].Tag;
 
 			addEditKeyForm.comboBoxGroups.Enabled = false;
+			parseKeyToForm(addEditKeyForm, oldKey);
+
+
+			if (addEditKeyForm.ShowDialog() != DialogResult.OK)
+				return;
+
+			Key key = parseFormToKey(addEditKeyForm);
+
+
+
+			//get from "database" using name
+			Group group = DataManager.GetGroupByName(UIContextManager.GroupSelected.Name);
+			if (DataManager.EditKeyFromGroup(oldKey, key, group) != null)
+			{
+				ClearUpdateKeys(UIContextManager.GroupSelected);
+
+			}
+
+		}
+
+		private static void parseKeyToForm(AddEditKeyForm addEditKeyForm, Key oldKey)
+		{
 			addEditKeyForm.textBoxTitle.Text = oldKey.Title;
 			addEditKeyForm.textBoxUserName.Text = oldKey.UserName;
 			addEditKeyForm.textBoxPassword.Text = oldKey.Password;
 			addEditKeyForm.textBoxConfirmPass.Text = oldKey.Password;
 			addEditKeyForm.textBoxURL.Text = oldKey.URL;
 			addEditKeyForm.textBoxNotes.Text = oldKey.Notes;
+		}
 
-
-			if (addEditKeyForm.ShowDialog() != DialogResult.OK)
-				return;
-
-			Key newKey = new Key();
-			newKey.Title = addEditKeyForm.textBoxTitle.Text;
-			newKey.UserName = addEditKeyForm.textBoxUserName.Text;
-			newKey.Password = addEditKeyForm.textBoxPassword.Text;
-			newKey.URL = addEditKeyForm.textBoxURL.Text;
-			newKey.Notes = addEditKeyForm.textBoxNotes.Text;
-
-
-
-			//get from "database" using name
-			Group group = DataManager.GetGroupByName(UIContextManager.GroupSelected.Name);
-			if (DataManager.EditKeyFromGroup(oldKey, newKey, group) != null)
-			{
-				ClearUpdateKeys(UIContextManager.GroupSelected);
-
-			}
-
+		private static Key parseFormToKey(AddEditKeyForm addEditKeyForm)
+		{
+			Key key = new Key();
+			key.Title = addEditKeyForm.textBoxTitle.Text;
+			key.UserName = addEditKeyForm.textBoxUserName.Text;
+			key.Password = addEditKeyForm.textBoxPassword.Text;
+			key.URL = addEditKeyForm.textBoxURL.Text;
+			key.Notes = addEditKeyForm.textBoxNotes.Text;
+			return key;
 		}
 
 		private void listViewKeys_SelectedIndexChanged(object sender, EventArgs e)

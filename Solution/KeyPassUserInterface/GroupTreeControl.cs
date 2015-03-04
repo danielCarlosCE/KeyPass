@@ -18,9 +18,15 @@ namespace KeyPassUserInterface
 
 		}
 
-		private void getGroups()
+		public void getGroups()
 		{
+			treeViewGroup.Nodes.Clear();
 			List<Group> groups = DataManager.ListGroups();
+			if (groups.Count <= 0)
+			{
+				UIContextManager.GroupSelected = null;
+				return;
+			}
 			foreach (Group group in groups)
 			{
 				AddNodeByGroup(group);
