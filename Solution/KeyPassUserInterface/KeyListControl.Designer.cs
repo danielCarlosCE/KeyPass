@@ -61,13 +61,14 @@
             this.url});
 			this.listViewKeys.ContextMenuStrip = this.contextMenuStrip1;
 			this.listViewKeys.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listViewKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.listViewKeys.FullRowSelect = true;
 			this.listViewKeys.GridLines = true;
 			this.listViewKeys.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.listViewKeys.HideSelection = false;
 			this.listViewKeys.Location = new System.Drawing.Point(3, 43);
 			this.listViewKeys.Name = "listViewKeys";
-			this.listViewKeys.Size = new System.Drawing.Size(267, 268);
+			this.listViewKeys.Size = new System.Drawing.Size(748, 368);
 			this.listViewKeys.Sorting = System.Windows.Forms.SortOrder.Ascending;
 			this.listViewKeys.TabIndex = 0;
 			this.listViewKeys.UseCompatibleStateImageBehavior = false;
@@ -77,20 +78,23 @@
 			// 
 			// title
 			// 
-			this.title.Text = "Title";
-			this.title.Width = 143;
+			this.title.Text = "   Title   ";
+			this.title.Width = 101;
 			// 
 			// name
 			// 
-			this.name.Text = "Name";
+			this.name.Text = "   Name   ";
+			this.name.Width = 161;
 			// 
 			// password
 			// 
-			this.password.Text = "Password";
+			this.password.Text = "   Password   ";
+			this.password.Width = 182;
 			// 
 			// url
 			// 
-			this.url.Text = "URL";
+			this.url.Text = "   URL   ";
+			this.url.Width = 313;
 			// 
 			// contextMenuStrip1
 			// 
@@ -134,7 +138,7 @@
             this.toolStripComboBox1});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(273, 39);
+			this.toolStrip1.Size = new System.Drawing.Size(291, 39);
 			this.toolStrip1.TabIndex = 1;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
@@ -196,7 +200,7 @@
 			// toolStripComboBox1
 			// 
 			this.toolStripComboBox1.Name = "toolStripComboBox1";
-			this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
+			this.toolStripComboBox1.Size = new System.Drawing.Size(121, 39);
 			// 
 			// tableLayoutPanel1
 			// 
@@ -210,7 +214,7 @@
 			this.tableLayoutPanel1.RowCount = 2;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(273, 314);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(754, 414);
 			this.tableLayoutPanel1.TabIndex = 3;
 			// 
 			// KeyListControl
@@ -219,7 +223,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Name = "KeyListControl";
-			this.Size = new System.Drawing.Size(273, 314);
+			this.Size = new System.Drawing.Size(754, 414);
 			this.Load += new System.EventHandler(this.OnLoad);
 			this.contextMenuStrip1.ResumeLayout(false);
 			this.toolStrip1.ResumeLayout(false);

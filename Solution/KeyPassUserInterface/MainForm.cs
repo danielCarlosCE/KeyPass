@@ -28,6 +28,7 @@ namespace KeyPassUserInterface
 		{
 			saveToolStripButton.Enabled = true;
 			saveToolStripMenuItem.Enabled = true;
+			saveAsToolStripMenuItem.Enabled = true;
 		}
 
 
@@ -73,7 +74,8 @@ namespace KeyPassUserInterface
 
 		private void OnIdle(object sender, EventArgs e)
 		{
-			
+
+
 			bool groupEnable = UIContextManager.GroupSelected != null;
 			bool keyEnableDelete = UIContextManager.GroupSelected != null
 								  && UIContextManager.GroupSelected.Keys.Count > 0
@@ -89,7 +91,11 @@ namespace KeyPassUserInterface
 			deleteEntryToolStripMenuItem.Enabled = keyEnableDelete;
 			keyListControl.enableDisableStripItems(keyEnableEdit, keyEnableDelete);
 
-			if (keyEnableEdit) {
+			this.Text = (UIContextManager.FileName != null) ? UIContextManager.FileName : "KeyPass";
+
+
+			if (keyEnableEdit)
+			{
 				updateRichText();
 			}
 			else
@@ -139,40 +145,65 @@ namespace KeyPassUserInterface
 
 		private void OnSaveDocument(object sender, EventArgs e)
 		{
+			SaveDocument();
 
+		}
+
+		private void SaveDocument()
+		{
+			Stream stream = null;
+			if (UIContextManager.FileName != null)
+			{
+				stream = new FileStream(UIContextManager.FileName, FileMode.Create);
+			}
+			else
+			{
+				stream = StreamSaveFile();
+			}
+			if (stream != null && DataManager.SaveDocument(stream))
+			{
+				saveToolStripButton.Enabled = false;
+				saveToolStripMenuItem.Enabled = false;
+			}
+		}
+
+		private void OnSaveAsDocument(object sender, EventArgs e)
+		{
+			Stream stream = StreamSaveFile();
+			if (stream != null && DataManager.SaveDocument(stream))
+			{
+				saveToolStripButton.Enabled = false;
+				saveToolStripMenuItem.Enabled = false;
+			}
+		}
+
+		private static Stream StreamSaveFile()
+		{
+			Stream stream = null;
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
 			saveFileDialog1.Filter = "Key Pass Files|*.xml";
 			saveFileDialog1.FilterIndex = 2;
 			saveFileDialog1.RestoreDirectory = true;
 
-			Stream stream;
 			using (saveFileDialog1)
 			{
-
 				if (saveFileDialog1.ShowDialog() == DialogResult.OK)
 				{
-					if ((stream = saveFileDialog1.OpenFile()) != null)
-					{
-
-						if (DataManager.SaveDocument(stream))
-						{
-							saveToolStripButton.Enabled = false;
-							saveToolStripMenuItem.Enabled = false;
-						}
-
-					}
+					UIContextManager.FileName = saveFileDialog1.FileName;
+					stream = saveFileDialog1.OpenFile();
 				}
 
 			}
-
-
-
-
+			return stream;
 		}
 
 		private void OnOpenDocument(object sender, EventArgs e)
 		{
+
+			if (!CheckIfWantSaveChanges())
+				return;
+
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 
 			openFileDialog.Filter = "Key Pass Files|*.xml";
@@ -190,7 +221,9 @@ namespace KeyPassUserInterface
 
 						if (DataManager.OpenDocument(stream) != null)
 						{
+							UIContextManager.FileName = openFileDialog.FileName;
 							groupTreeControl.getGroups();
+							saveAsToolStripMenuItem.Enabled = true;
 							saveToolStripButton.Enabled = false;
 							saveToolStripMenuItem.Enabled = false;
 						}
@@ -203,9 +236,14 @@ namespace KeyPassUserInterface
 
 		private void OnNewDocument(object sender, EventArgs e)
 		{
+			if (!CheckIfWantSaveChanges())
+				return;
+
 			if (DataManager.NewDocument())
 			{
+				UIContextManager.FileName = null;
 				groupTreeControl.getGroups();
+				saveAsToolStripMenuItem.Enabled = false;
 				saveToolStripButton.Enabled = false;
 				saveToolStripMenuItem.Enabled = false;
 			}
@@ -213,10 +251,42 @@ namespace KeyPassUserInterface
 
 		private void OnFormClosing(object sender, FormClosingEventArgs e)
 		{
-			
+			if(CheckIfWantSaveChanges())
+				e.Cancel = false;
+            else 
+				e.Cancel = true;
+		}
+		
+		/** Return false when user clicks Cancel button*/
+		private bool CheckIfWantSaveChanges()
+		{
+			if (!saveToolStripButton.Enabled)
+				return true;
+
+			SaveFileOptionForm saveform = new SaveFileOptionForm();
+			using (saveform)
+			{
+
+				DialogResult dialogResult = saveform.ShowDialog();
+
+				if (dialogResult == DialogResult.Yes)
+				{
+					SaveDocument();
+					return true;
+				}
+				else if (dialogResult == DialogResult.No)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+
 		}
 
-		
+
 
 
 

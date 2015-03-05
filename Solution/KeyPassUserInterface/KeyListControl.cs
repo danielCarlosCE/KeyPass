@@ -16,6 +16,8 @@ namespace KeyPassUserInterface
 		private void OnLoad(object sender, EventArgs e)
 		{
 			UIContextManager.GroupSelectedEvent += OnGroupSelected;
+			listViewKeys.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
 
 		}
 
@@ -33,7 +35,6 @@ namespace KeyPassUserInterface
 			if (groupSelected != null)
 			{
 
-
 				foreach (Key key in groupSelected.Keys)
 				{
 					ListViewItem listViewItem = new ListViewItem(key.Title);
@@ -46,6 +47,7 @@ namespace KeyPassUserInterface
 
 					listViewKeys.Items.Add(listViewItem);
 				}
+				
 
 			}
 

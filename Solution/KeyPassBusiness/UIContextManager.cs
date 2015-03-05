@@ -11,6 +11,14 @@ namespace KeyPassBusiness
 		private static Group groupSelected;
 		public static event GroupSelectedEventHandler GroupSelectedEvent;
 		private static List<Key> _keysSelected = new List<Key>();
+		private static string fileName = null;
+
+		public static string FileName
+		{
+			get { return fileName; }
+			set { fileName = value; }
+		}
+
 
 		public static List<Key> KeysSelected
 		{
