@@ -118,8 +118,9 @@
 			this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
 			this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-			this.groupTreeControl = new KeyPassUserInterface.GroupTreeControl();
 			this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+			this.richText = new System.Windows.Forms.RichTextBox();
+			this.groupTreeControl = new KeyPassUserInterface.GroupTreeControl();
 			this.keyListControl = new KeyPassUserInterface.KeyListControl();
 			this.statusBar = new KeyPassUserInterface.StatusStripControl();
 			this.menuStrip1.SuspendLayout();
@@ -130,6 +131,7 @@
 			this.splitContainer1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
 			this.splitContainer2.Panel1.SuspendLayout();
+			this.splitContainer2.Panel2.SuspendLayout();
 			this.splitContainer2.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -191,6 +193,7 @@
 			// 
 			// saveToolStripMenuItem
 			// 
+			this.saveToolStripMenuItem.Enabled = false;
 			this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
 			this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
@@ -444,6 +447,7 @@
 			// saveToolStripButton
 			// 
 			this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.saveToolStripButton.Enabled = false;
 			this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
 			this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.saveToolStripButton.Name = "saveToolStripButton";
@@ -495,15 +499,6 @@
 			this.splitContainer1.SplitterDistance = 235;
 			this.splitContainer1.TabIndex = 3;
 			// 
-			// groupTreeControl
-			// 
-			this.groupTreeControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.groupTreeControl.Location = new System.Drawing.Point(0, 0);
-			this.groupTreeControl.Name = "groupTreeControl";
-			this.groupTreeControl.Size = new System.Drawing.Size(231, 456);
-			this.groupTreeControl.TabIndex = 0;
-			this.groupTreeControl.Load += new System.EventHandler(this.OnGroupTreeLoad);
-			// 
 			// splitContainer2
 			// 
 			this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -519,10 +514,30 @@
 			// 
 			// splitContainer2.Panel2
 			// 
+			this.splitContainer2.Panel2.Controls.Add(this.richText);
 			this.splitContainer2.Panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Strikeout))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.splitContainer2.Size = new System.Drawing.Size(774, 460);
 			this.splitContainer2.SplitterDistance = 336;
 			this.splitContainer2.TabIndex = 0;
+			// 
+			// richText
+			// 
+			this.richText.BackColor = System.Drawing.SystemColors.Info;
+			this.richText.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.richText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.richText.Location = new System.Drawing.Point(0, 0);
+			this.richText.Name = "richText";
+			this.richText.Size = new System.Drawing.Size(770, 116);
+			this.richText.TabIndex = 0;
+			this.richText.Text = "";
+			// 
+			// groupTreeControl
+			// 
+			this.groupTreeControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.groupTreeControl.Location = new System.Drawing.Point(0, 0);
+			this.groupTreeControl.Name = "groupTreeControl";
+			this.groupTreeControl.Size = new System.Drawing.Size(231, 456);
+			this.groupTreeControl.TabIndex = 0;
 			// 
 			// keyListControl
 			// 
@@ -553,6 +568,8 @@
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "MainForm";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
+			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.toolStripMenu.ResumeLayout(false);
@@ -562,6 +579,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
 			this.splitContainer2.Panel1.ResumeLayout(false);
+			this.splitContainer2.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
 			this.splitContainer2.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -570,6 +588,8 @@
 		}
 
 		#endregion
+
+		private System.Windows.Forms.RichTextBox richText;
 
 
 	}

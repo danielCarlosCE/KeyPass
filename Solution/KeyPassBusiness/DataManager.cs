@@ -7,14 +7,27 @@ using System.Xml.Linq;
 
 namespace KeyPassBusiness
 {
+	public delegate void DataModifiedEventHandler();
+
+
 	public static class DataManager
 	{
 		private static Document _document = new Document();
+		public static event DataModifiedEventHandler DataModifiedEvent;
+
+		private static void CallEvent()
+		{
+			if(DataModifiedEvent!=null){
+				DataModifiedEvent();
+			}
+		}
+
 
 		public static List<Group> ListGroups()
 		{
 			return _document.Groups;
 		}
+
 
 
 		public static bool NewDocument()
@@ -113,6 +126,7 @@ namespace KeyPassBusiness
 			Group g = new Group();
 			g.Name = name;
 			_document.Groups.Add(g);
+			CallEvent();
 			return g;
 		}
 
@@ -123,6 +137,8 @@ namespace KeyPassBusiness
 			{
 				group.Name = newName;
 			}
+			CallEvent();
+
 			return group;
 		}
 
@@ -142,6 +158,8 @@ namespace KeyPassBusiness
 		{
 			Group group = GetGroupByName(groupName);
 			_document.Groups.Remove(group);
+			CallEvent();
+
 			return true;
 		}
 
@@ -149,12 +167,16 @@ namespace KeyPassBusiness
 		public static Group AddkeyToGroup(Key key, Group group)
 		{
 			group.Keys.Add(key);
+			CallEvent();
+
 			return group;
 		}
 
 		public static bool DeleteKeyFromGroup(Key key, Group group)
 		{
 			group.Keys.Remove(key);
+			CallEvent();
+
 			return true;
 		}
 
@@ -166,6 +188,7 @@ namespace KeyPassBusiness
 				{
 					int index = group.Keys.IndexOf(key);
 					group.Keys[index] = newkey;
+					CallEvent();
 					return newkey;
 
 				}

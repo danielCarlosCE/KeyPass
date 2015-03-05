@@ -143,7 +143,6 @@ namespace KeyPassUserInterface
 			foreach (ListViewItem listViewItem in listViewKeys.SelectedItems)
 			{
 				keysSelected.Add((Key)listViewItem.Tag);
-
 			}
 			UIContextManager.KeysSelected = keysSelected;
 		}

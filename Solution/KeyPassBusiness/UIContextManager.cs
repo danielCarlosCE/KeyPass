@@ -23,6 +23,7 @@ namespace KeyPassBusiness
 			get { return groupSelected; }
 			set
 			{
+
 				groupSelected = value;
 				//null when have no subscribers
 				if (GroupSelectedEvent != null)

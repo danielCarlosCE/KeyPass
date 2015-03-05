@@ -1,4 +1,5 @@
 ﻿using KeyPassBusiness;
+using KeyPassInfoObjects;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -13,6 +14,20 @@ namespace KeyPassUserInterface
 		public MainForm()
 		{
 			InitializeComponent();
+		}
+
+
+		private void MainForm_Load(object sender, EventArgs e)
+		{
+			Application.Idle += OnIdle;
+			DataManager.DataModifiedEvent += OnDataModified;
+
+		}
+
+		void OnDataModified()
+		{
+			saveToolStripButton.Enabled = true;
+			saveToolStripMenuItem.Enabled = true;
 		}
 
 
@@ -33,12 +48,6 @@ namespace KeyPassUserInterface
 		{
 			AboutForm about = new AboutForm();
 			about.ShowDialog();
-		}
-
-
-		private void OnGroupTreeLoad(object sender, EventArgs e)
-		{
-			Application.Idle += OnIdle;
 		}
 
 
@@ -64,7 +73,7 @@ namespace KeyPassUserInterface
 
 		private void OnIdle(object sender, EventArgs e)
 		{
-
+			
 			bool groupEnable = UIContextManager.GroupSelected != null;
 			bool keyEnableDelete = UIContextManager.GroupSelected != null
 								  && UIContextManager.GroupSelected.Keys.Count > 0
@@ -80,7 +89,13 @@ namespace KeyPassUserInterface
 			deleteEntryToolStripMenuItem.Enabled = keyEnableDelete;
 			keyListControl.enableDisableStripItems(keyEnableEdit, keyEnableDelete);
 
-
+			if (keyEnableEdit) {
+				updateRichText();
+			}
+			else
+			{
+				richText.Text = "";
+			}
 
 			int totalGroups = DataManager.ListGroups().Count;
 			int toalKeysSelected = UIContextManager.KeysSelected.Count;
@@ -88,6 +103,22 @@ namespace KeyPassUserInterface
 
 			statusBar.updateStatus(totalGroups, toalKeysSelected, totalKeys);
 
+
+		}
+
+		private void updateRichText()
+		{
+			Key key = UIContextManager.KeysSelected[0];
+			String text = "";
+			text += "Title = " + key.Title;
+			text += "\nUserName  = " + key.UserName;
+			text += "\nPassword  = " + key.Password;
+			text += "\nURL  = " + key.URL;
+			text += "\n\nNotes\n - - - - - - - - - - - - - - - - - - - - - -\n " + key.Notes;
+			if (richText.Text != text)
+			{
+				richText.Text = text;
+			}
 
 		}
 
@@ -124,7 +155,11 @@ namespace KeyPassUserInterface
 					if ((stream = saveFileDialog1.OpenFile()) != null)
 					{
 
-						DataManager.SaveDocument(stream);
+						if (DataManager.SaveDocument(stream))
+						{
+							saveToolStripButton.Enabled = false;
+							saveToolStripMenuItem.Enabled = false;
+						}
 
 					}
 				}
@@ -156,6 +191,8 @@ namespace KeyPassUserInterface
 						if (DataManager.OpenDocument(stream) != null)
 						{
 							groupTreeControl.getGroups();
+							saveToolStripButton.Enabled = false;
+							saveToolStripMenuItem.Enabled = false;
 						}
 
 					}
@@ -169,9 +206,17 @@ namespace KeyPassUserInterface
 			if (DataManager.NewDocument())
 			{
 				groupTreeControl.getGroups();
+				saveToolStripButton.Enabled = false;
+				saveToolStripMenuItem.Enabled = false;
 			}
 		}
 
+		private void OnFormClosing(object sender, FormClosingEventArgs e)
+		{
+			
+		}
+
+		
 
 
 
