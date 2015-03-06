@@ -44,6 +44,8 @@ namespace KeyPassUserInterface
 
 			textBoxNotes.Text = Util.generateRandomText();
 
+			buttonOK.Focus();
+
 		}
 
 		private bool validateInput()

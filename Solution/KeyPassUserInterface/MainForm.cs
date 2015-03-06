@@ -75,45 +75,40 @@ namespace KeyPassUserInterface
 		private void OnIdle(object sender, EventArgs e)
 		{
 
-
+			#region enabling menus
 			bool groupEnable = UIContextManager.GroupSelected != null;
-			bool keyEnableDelete = UIContextManager.GroupSelected != null
-								  && UIContextManager.GroupSelected.Keys.Count > 0
-								  && UIContextManager.KeysSelected.Count > 0;
-			bool keyEnableEdit = UIContextManager.GroupSelected != null
-								 && UIContextManager.GroupSelected.Keys.Count > 0
-								&& UIContextManager.KeysSelected.Count == 1;
+			bool keyEnableDelete = groupEnable && UIContextManager.KeysSelected.Count > 0;
+			bool keyEnableEdit = groupEnable && UIContextManager.KeysSelected.Count == 1;
 
-			editGroupToolStripMenuItem.Enabled = deleteGroupToolStripMenuItem.Enabled = groupEnable;
+			editGroupToolStripMenuItem.Enabled = groupEnable;
+			deleteGroupToolStripMenuItem.Enabled = groupEnable;
 			groupTreeControl.enableDisableStripItems(groupEnable);
 
 			editEntryToolStripMenuItem.Enabled = keyEnableEdit;
 			deleteEntryToolStripMenuItem.Enabled = keyEnableDelete;
 			keyListControl.enableDisableStripItems(keyEnableEdit, keyEnableDelete);
+			#endregion
 
 			this.Text = (UIContextManager.FileName != null) ? UIContextManager.FileName : "KeyPass";
 
+			updateRichText(keyEnableEdit);
 
-			if (keyEnableEdit)
-			{
-				updateRichText();
-			}
-			else
-			{
-				richText.Text = "";
-			}
-
+			#region Update Status Bar
 			int totalGroups = DataManager.ListGroups().Count;
 			int toalKeysSelected = UIContextManager.KeysSelected.Count;
 			int totalKeys = UIContextManager.GroupSelected == null ? 0 : UIContextManager.GroupSelected.Keys.Count;
-
 			statusBar.updateStatus(totalGroups, toalKeysSelected, totalKeys);
-
+			#endregion
 
 		}
 
-		private void updateRichText()
+		private void updateRichText(Boolean keySelected)
 		{
+			if (!keySelected)
+			{
+				richText.Text = "";
+				return; 
+			}
 			Key key = UIContextManager.KeysSelected[0];
 			String text = "";
 			text += "Title = " + key.Title;
@@ -251,12 +246,12 @@ namespace KeyPassUserInterface
 
 		private void OnFormClosing(object sender, FormClosingEventArgs e)
 		{
-			if(CheckIfWantSaveChanges())
+			if (CheckIfWantSaveChanges())
 				e.Cancel = false;
-            else 
+			else
 				e.Cancel = true;
 		}
-		
+
 		/** Return false when user clicks Cancel button*/
 		private bool CheckIfWantSaveChanges()
 		{
