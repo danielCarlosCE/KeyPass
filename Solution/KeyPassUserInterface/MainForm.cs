@@ -144,7 +144,7 @@ namespace KeyPassUserInterface
 
 		}
 
-		private void SaveDocument()
+		private bool SaveDocument()
 		{
 			Stream stream = null;
 			if (UIContextManager.FileName != null)
@@ -159,7 +159,9 @@ namespace KeyPassUserInterface
 			{
 				saveToolStripButton.Enabled = false;
 				saveToolStripMenuItem.Enabled = false;
+
 			}
+			return stream != null;
 		}
 
 		private void OnSaveAsDocument(object sender, EventArgs e)
@@ -266,8 +268,7 @@ namespace KeyPassUserInterface
 
 				if (dialogResult == DialogResult.Yes)
 				{
-					SaveDocument();
-					return true;
+					return SaveDocument();
 				}
 				else if (dialogResult == DialogResult.No)
 				{
