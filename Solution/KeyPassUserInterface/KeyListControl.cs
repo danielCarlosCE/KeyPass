@@ -24,11 +24,11 @@ namespace KeyPassUserInterface
 		void OnGroupSelected(Group groupSelected)
 		{
 
-			ClearUpdateKeys(groupSelected);
+			ClearUpdateKeys(groupSelected, null);
 
 		}
 
-		private void ClearUpdateKeys(Group groupSelected)
+		private void ClearUpdateKeys(Group groupSelected, Key selectedKey)
 		{
 			UIContextManager.KeysSelected.Clear();
 			listViewKeys.Items.Clear();
@@ -40,11 +40,12 @@ namespace KeyPassUserInterface
 					ListViewItem listViewItem = new ListViewItem(key.Title);
 					listViewItem.SubItems.Add(key.UserName);
 					listViewItem.SubItems.Add(key.Password);
-
 					listViewItem.SubItems.Add(key.URL);
-
 					listViewItem.Tag = key;
-
+					if (key == selectedKey)
+					{
+						listViewItem.Selected = true;
+					}
 					listViewKeys.Items.Add(listViewItem);
 				}
 				
@@ -58,7 +59,6 @@ namespace KeyPassUserInterface
 			AddKeyDialog();
 
 		}
-
 
 		private void OnEditKey(object sender, EventArgs e)
 		{
@@ -80,15 +80,14 @@ namespace KeyPassUserInterface
 
 			Key key = parseFormToKey(addEditKeyForm);
 
-
 			Group group = (Group)addEditKeyForm.comboBoxGroups.SelectedItem;
 
 			//get from "database" using name
 			group = DataManager.GetGroupByName(group.Name);
-			DataManager.AddkeyToGroup(key, group);
-
-
-			ClearUpdateKeys(UIContextManager.GroupSelected);
+			if (DataManager.AddkeyToGroup(key, group) != null)
+			{
+				ClearUpdateKeys(UIContextManager.GroupSelected, key);
+			}
 		}
 
 		public void EditKeyDialog()
@@ -106,13 +105,11 @@ namespace KeyPassUserInterface
 
 			Key key = parseFormToKey(addEditKeyForm);
 
-
-
 			//get from "database" using name
 			Group group = DataManager.GetGroupByName(UIContextManager.GroupSelected.Name);
 			if (DataManager.EditKeyFromGroup(oldKey, key, group) != null)
 			{
-				ClearUpdateKeys(UIContextManager.GroupSelected);
+				ClearUpdateKeys(UIContextManager.GroupSelected, key);
 
 			}
 
