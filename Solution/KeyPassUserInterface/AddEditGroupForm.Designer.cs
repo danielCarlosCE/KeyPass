@@ -43,9 +43,9 @@
 			// 
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.buttonCancel.Location = new System.Drawing.Point(123, 3);
+			this.buttonCancel.Location = new System.Drawing.Point(243, 3);
 			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.Size = new System.Drawing.Size(114, 47);
+			this.buttonCancel.Size = new System.Drawing.Size(115, 47);
 			this.buttonCancel.TabIndex = 7;
 			this.buttonCancel.TabStop = false;
 			this.buttonCancel.Text = "Cancel";
@@ -55,9 +55,9 @@
 			// buttonOK
 			// 
 			this.buttonOK.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.buttonOK.Location = new System.Drawing.Point(243, 3);
+			this.buttonOK.Location = new System.Drawing.Point(123, 3);
 			this.buttonOK.Name = "buttonOK";
-			this.buttonOK.Size = new System.Drawing.Size(115, 47);
+			this.buttonOK.Size = new System.Drawing.Size(114, 47);
 			this.buttonOK.TabIndex = 8;
 			this.buttonOK.TabStop = false;
 			this.buttonOK.Text = "OK";
@@ -83,8 +83,8 @@
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
 			this.tableLayoutPanel1.Controls.Add(this.buttonTest, 0, 0);
-			this.tableLayoutPanel1.Controls.Add(this.buttonOK, 2, 0);
-			this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 1, 0);
+			this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 2, 0);
+			this.tableLayoutPanel1.Controls.Add(this.buttonOK, 1, 0);
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 47);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";

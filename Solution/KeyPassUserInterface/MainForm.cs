@@ -9,7 +9,8 @@ namespace KeyPassUserInterface
 {
 	public partial class MainForm : Form
 	{
-
+		private const string extension = ".mkp";
+		private const string _filter = "My Key Pass Files|*"+extension;
 
 		public MainForm()
 		{
@@ -102,6 +103,7 @@ namespace KeyPassUserInterface
 
 		}
 
+		#region call children methods
 		private void updateRichText(Boolean keySelected)
 		{
 			if (!keySelected)
@@ -137,6 +139,7 @@ namespace KeyPassUserInterface
 		{
 			keyListControl.deleteKeys();
 		}
+		#endregion
 
 		private void OnSaveDocument(object sender, EventArgs e)
 		{
@@ -179,7 +182,7 @@ namespace KeyPassUserInterface
 			Stream stream = null;
 			SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
-			saveFileDialog1.Filter = "Key Pass Files|*.xml";
+			saveFileDialog1.Filter = _filter;
 			saveFileDialog1.FilterIndex = 2;
 			saveFileDialog1.RestoreDirectory = true;
 
@@ -203,7 +206,7 @@ namespace KeyPassUserInterface
 
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 
-			openFileDialog.Filter = "Key Pass Files|*.xml";
+			openFileDialog.Filter = _filter;
 			openFileDialog.FilterIndex = 2;
 			openFileDialog.RestoreDirectory = true;
 
@@ -216,18 +219,24 @@ namespace KeyPassUserInterface
 					if ((stream = openFileDialog.OpenFile()) != null)
 					{
 
-						if (DataManager.OpenDocument(stream) != null)
-						{
-							UIContextManager.FileName = openFileDialog.FileName;
-							groupTreeControl.getGroups();
-							saveAsToolStripMenuItem.Enabled = true;
-							saveToolStripButton.Enabled = false;
-							saveToolStripMenuItem.Enabled = false;
-						}
+						UpdateInterfaceOpenDocument(openFileDialog.FileName, stream);
 
 					}
 				}
 
+			}
+		}
+
+		private void UpdateInterfaceOpenDocument(string fileName, Stream stream)
+		{
+			if (DataManager.OpenDocument(stream) != null)
+			{
+				
+				UIContextManager.FileName = fileName;
+				groupTreeControl.getGroups();
+				saveAsToolStripMenuItem.Enabled = true;
+				saveToolStripButton.Enabled = false;
+				saveToolStripMenuItem.Enabled = false;
 			}
 		}
 
@@ -278,6 +287,40 @@ namespace KeyPassUserInterface
 				{
 					return false;
 				}
+			}
+
+		}
+
+		private void OnDragEnter(object sender, DragEventArgs e)
+		{
+			Console.WriteLine("drag enter");
+
+			if (e.Data.GetDataPresent(DataFormats.FileDrop))
+				e.Effect = DragDropEffects.All;
+			else
+				e.Effect = DragDropEffects.None;
+		}
+
+		private void OnDragDrop(object sender, DragEventArgs e)
+		{
+			Console.WriteLine("drag drop");
+
+			
+
+			if (!CheckIfWantSaveChanges())
+				return;
+
+			string fileName = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+			Console.WriteLine(fileName);
+			if(Path.GetExtension(fileName).ToLower()!=extension){
+				MessageBox.Show("Sorry, but the application only accepts "+extension+" files.");
+				return;
+			}
+
+			using (FileStream
+			fileStream = new FileStream(fileName, FileMode.Open))
+			{
+				UpdateInterfaceOpenDocument(fileName, fileStream);
 			}
 
 		}

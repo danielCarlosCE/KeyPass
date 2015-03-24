@@ -44,8 +44,8 @@
 			this.tableLayoutPanel1.ColumnCount = 2;
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 0, 0);
-			this.tableLayoutPanel1.Controls.Add(this.buttonOk, 1, 0);
+			this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 1, 0);
+			this.tableLayoutPanel1.Controls.Add(this.buttonOk, 0, 0);
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 166);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -60,9 +60,9 @@
 			// 
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.buttonCancel.Location = new System.Drawing.Point(3, 3);
+			this.buttonCancel.Location = new System.Drawing.Point(236, 3);
 			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.Size = new System.Drawing.Size(227, 47);
+			this.buttonCancel.Size = new System.Drawing.Size(228, 47);
 			this.buttonCancel.TabIndex = 1;
 			this.buttonCancel.Text = "Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
@@ -71,9 +71,9 @@
 			// buttonOk
 			// 
 			this.buttonOk.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.buttonOk.Location = new System.Drawing.Point(236, 3);
+			this.buttonOk.Location = new System.Drawing.Point(3, 3);
 			this.buttonOk.Name = "buttonOk";
-			this.buttonOk.Size = new System.Drawing.Size(228, 47);
+			this.buttonOk.Size = new System.Drawing.Size(227, 47);
 			this.buttonOk.TabIndex = 0;
 			this.buttonOk.Text = "Ok";
 			this.buttonOk.UseVisualStyleBackColor = true;

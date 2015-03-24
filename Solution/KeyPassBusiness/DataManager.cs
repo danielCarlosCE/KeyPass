@@ -29,7 +29,6 @@ namespace KeyPassBusiness
 		}
 
 
-
 		public static bool NewDocument()
 		{
 			_document = new Document();
@@ -85,7 +84,6 @@ namespace KeyPassBusiness
 
 				XmlNode rootNode = xmlDoc.CreateElement("groups");
 				xmlDoc.AppendChild(rootNode);
-
 				foreach (Group g in _document.Groups)
 				{
 					XmlNode groupNode = xmlDoc.CreateElement("group");
