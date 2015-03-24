@@ -1,7 +1,9 @@
 ﻿
+using System;
 using System.Collections.Generic;
 namespace KeyPassInfoObjects
 {
+	[Serializable]
 	public class Group
 	{
 

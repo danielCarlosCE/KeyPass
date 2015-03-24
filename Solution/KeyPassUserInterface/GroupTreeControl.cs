@@ -84,7 +84,7 @@ namespace KeyPassUserInterface
 
 		public void enableDisableStripItems(bool enable)
 		{
-			toolStripEditGroup.Enabled = _tsmEditGroup.Enabled = toolStripDeleteGroup.Enabled = _tmsDeleteGroup.Enabled = enable;
+			_tsmCopyGroup.Enabled = _tsmPasteGroup.Enabled = toolStripEditGroup.Enabled = _tsmEditGroup.Enabled = toolStripDeleteGroup.Enabled = _tmsDeleteGroup.Enabled = enable;
 
 		}
 
@@ -98,6 +98,11 @@ namespace KeyPassUserInterface
 			string groupName = addEditGroupForm.GroupName;
 
 			Group group = DataManager.AddGroup(groupName);
+			AddGroupUI(group);
+		}
+
+		private void AddGroupUI(Group group)
+		{
 			if (group != null)
 			{
 				AddNodeByGroup(group);
@@ -117,7 +122,7 @@ namespace KeyPassUserInterface
 
 			string newName = addEditGroupForm.GroupName;
 
-			Group editedGroup = DataManager.EditGroup(oldName, newName);
+			Group editedGroup = DataManager.EditGroup(UIContextManager.GroupSelected, newName);
 			if (editedGroup != null)
 			{
 				treeViewGroup.SelectedNode.Text = newName;
@@ -126,7 +131,7 @@ namespace KeyPassUserInterface
 
 		public void deleteGroup()
 		{
-			if (DataManager.DeleteGroup(treeViewGroup.SelectedNode.Text))
+			if (DataManager.DeleteGroup(UIContextManager.GroupSelected))
 			{
 
 				treeViewGroup.SelectedNode.Remove();
@@ -138,6 +143,18 @@ namespace KeyPassUserInterface
 			}
 		}
 
+		public void OnCopyGroup(object sender, EventArgs e)
+		{
+			DataObject dataObject = new DataObject("group",UIContextManager.GroupSelected);
+			Clipboard.SetDataObject(dataObject,true);
+		}
+
+		private void OnPasteGroup(object sender, EventArgs e)
+		{
+			Group groupOnClipBoard = (Group)Clipboard.GetData("group");
+			Group groupAdded = DataManager.AddGroup(groupOnClipBoard);
+			AddGroupUI(groupAdded);
+		}
 
 
 

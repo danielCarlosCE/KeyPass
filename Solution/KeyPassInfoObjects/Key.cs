@@ -1,6 +1,8 @@
 ﻿
+using System;
 namespace KeyPassInfoObjects
 {
+	[Serializable]
 	public class Key
 	{
 		private string _title;

@@ -121,40 +121,38 @@ namespace KeyPassBusiness
 
 		public static Group AddGroup(String name)
 		{
-			Group g = new Group();
-			g.Name = name;
-			_document.Groups.Add(g);
-			CallEvent();
-			return g;
+			Group group = new Group();
+			group.Name = name;
+
+			return AddGroupDocument(group);
 		}
 
-		public static Group EditGroup(string oldName, string newName)
+		public static Group AddGroup(Group group)
 		{
-			Group group = GetGroupByName(oldName);
-			if (group != null)
-			{
-				group.Name = newName;
-			}
+			return AddGroupDocument(group);
+		}
+
+		private static Group AddGroupDocument(Group group)
+		{
+			_document.Groups.Add(group);
+			CallEvent();
+			return group;
+		}
+
+		public static Group EditGroup(Group group, string newName)
+		{
+			
+			group.Name = newName;
+			
 			CallEvent();
 
 			return group;
 		}
 
-		public static Group GetGroupByName(string groupName)
-		{
-			foreach (Group group in _document.Groups)
-			{
-				if (groupName.Equals(group.Name))
-				{
-					return group;
-				}
-			}
-			return null;
-		}
 
-		public static bool DeleteGroup(String groupName)
+
+		public static bool DeleteGroup(Group group)
 		{
-			Group group = GetGroupByName(groupName);
 			_document.Groups.Remove(group);
 			CallEvent();
 

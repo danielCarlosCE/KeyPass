@@ -47,6 +47,7 @@
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this._tsmDuplicateEntry = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
@@ -101,28 +102,29 @@
 			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addEntryToolStripMenuItem,
             this.editEntryToolStripMenuItem,
+            this._tsmDuplicateEntry,
             this.deleteEntryToolStripMenuItem});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(147, 70);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(155, 114);
 			// 
 			// addEntryToolStripMenuItem
 			// 
 			this.addEntryToolStripMenuItem.Name = "addEntryToolStripMenuItem";
-			this.addEntryToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+			this.addEntryToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
 			this.addEntryToolStripMenuItem.Text = "Add Entry...";
 			this.addEntryToolStripMenuItem.Click += new System.EventHandler(this.OnAddKey);
 			// 
 			// editEntryToolStripMenuItem
 			// 
 			this.editEntryToolStripMenuItem.Name = "editEntryToolStripMenuItem";
-			this.editEntryToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+			this.editEntryToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
 			this.editEntryToolStripMenuItem.Text = "Edit Entry...";
 			this.editEntryToolStripMenuItem.Click += new System.EventHandler(this.OnEditKey);
 			// 
 			// deleteEntryToolStripMenuItem
 			// 
 			this.deleteEntryToolStripMenuItem.Name = "deleteEntryToolStripMenuItem";
-			this.deleteEntryToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+			this.deleteEntryToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
 			this.deleteEntryToolStripMenuItem.Text = "Delete Entry...";
 			// 
 			// toolStrip1
@@ -217,6 +219,13 @@
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(754, 414);
 			this.tableLayoutPanel1.TabIndex = 3;
 			// 
+			// _tsmDuplicateEntry
+			// 
+			this._tsmDuplicateEntry.Name = "_tsmDuplicateEntry";
+			this._tsmDuplicateEntry.Size = new System.Drawing.Size(154, 22);
+			this._tsmDuplicateEntry.Text = "Duplicate Entry";
+			this._tsmDuplicateEntry.Click += new System.EventHandler(this.OnDuplicateEntry);
+			// 
 			// KeyListControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -254,5 +263,6 @@
 		private System.Windows.Forms.ToolStripMenuItem addEntryToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem editEntryToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem deleteEntryToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem _tsmDuplicateEntry;
 	}
 }

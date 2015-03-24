@@ -82,8 +82,7 @@ namespace KeyPassUserInterface
 
 			Group group = (Group)addEditKeyForm.comboBoxGroups.SelectedItem;
 
-			//get from "database" using name
-			group = DataManager.GetGroupByName(group.Name);
+			
 			if (DataManager.AddkeyToGroup(key, group) != null)
 			{
 				ClearUpdateKeys(UIContextManager.GroupSelected, key);
@@ -106,7 +105,7 @@ namespace KeyPassUserInterface
 			Key key = parseFormToKey(addEditKeyForm);
 
 			//get from "database" using name
-			Group group = DataManager.GetGroupByName(UIContextManager.GroupSelected.Name);
+			Group group = UIContextManager.GroupSelected;
 			if (DataManager.EditKeyFromGroup(oldKey, key, group) != null)
 			{
 				ClearUpdateKeys(UIContextManager.GroupSelected, key);
@@ -147,11 +146,10 @@ namespace KeyPassUserInterface
 		}
 
 
-
 		internal void enableDisableStripItems(bool keyEnableEdit, bool keyEnableDelete)
 		{
 			toolStripButtonEditKey.Enabled = editEntryToolStripMenuItem.Enabled = keyEnableEdit;
-			toolStripButtonDeleteKey.Enabled = deleteEntryToolStripMenuItem.Enabled = keyEnableDelete;
+			_tsmDuplicateEntry.Enabled = toolStripButtonDeleteKey.Enabled = deleteEntryToolStripMenuItem.Enabled = keyEnableDelete;
 		}
 
 		private void OnDeleteKeys(object sender, EventArgs e)
@@ -170,6 +168,35 @@ namespace KeyPassUserInterface
 				}
 
 			}
+		}
+
+		private void OnDuplicateEntry(object sender, EventArgs e)
+		{
+			List<Key> keys = new List<Key>();
+			foreach (ListViewItem listViewItem in listViewKeys.SelectedItems)
+			{
+				keys.Add((Key)listViewItem.Tag);
+			}
+			DataObject dataObject = new DataObject("keys", keys);
+			Clipboard.SetDataObject(dataObject, true);
+
+			List<Key> keysOnClipBoard = (List<Key>)Clipboard.GetData("keys");
+			Console.WriteLine(keysOnClipBoard);
+
+			foreach (Key key in keysOnClipBoard)
+			{
+				if (DataManager.AddkeyToGroup(key, UIContextManager.GroupSelected) == null)
+				{
+					MessageBox.Show("Sorry, but for some reason the key "+key.Title+" was not added");
+				}
+				else
+				{
+					ClearUpdateKeys(UIContextManager.GroupSelected, key);
+				}
+			}
+			
+
+			
 		}
 	}
 }

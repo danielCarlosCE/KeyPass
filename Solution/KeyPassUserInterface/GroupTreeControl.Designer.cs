@@ -40,6 +40,9 @@
 			this._tsmEditGroup = new System.Windows.Forms.ToolStripMenuItem();
 			this._tmsDeleteGroup = new System.Windows.Forms.ToolStripMenuItem();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this._tsmCopyGroup = new System.Windows.Forms.ToolStripMenuItem();
+			this._tsmPasteGroup = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip1.SuspendLayout();
 			this.contextMenuStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -116,28 +119,31 @@
 			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._tsmAddGroup,
             this._tsmEditGroup,
-            this._tmsDeleteGroup});
+            this._tmsDeleteGroup,
+            this.toolStripSeparator1,
+            this._tsmCopyGroup,
+            this._tsmPasteGroup});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(181, 142);
 			// 
 			// _tsmAddGroup
 			// 
 			this._tsmAddGroup.Name = "_tsmAddGroup";
-			this._tsmAddGroup.Size = new System.Drawing.Size(152, 22);
+			this._tsmAddGroup.Size = new System.Drawing.Size(180, 22);
 			this._tsmAddGroup.Text = "Add Group..";
 			this._tsmAddGroup.Click += new System.EventHandler(this.onAddGroup);
 			// 
 			// _tsmEditGroup
 			// 
 			this._tsmEditGroup.Name = "_tsmEditGroup";
-			this._tsmEditGroup.Size = new System.Drawing.Size(152, 22);
+			this._tsmEditGroup.Size = new System.Drawing.Size(180, 22);
 			this._tsmEditGroup.Text = "Edit Group...";
 			this._tsmEditGroup.Click += new System.EventHandler(this.OnEditGroup);
 			// 
 			// _tmsDeleteGroup
 			// 
 			this._tmsDeleteGroup.Name = "_tmsDeleteGroup";
-			this._tmsDeleteGroup.Size = new System.Drawing.Size(152, 22);
+			this._tmsDeleteGroup.Size = new System.Drawing.Size(180, 22);
 			this._tmsDeleteGroup.Text = "Delete Group...";
 			this._tmsDeleteGroup.Click += new System.EventHandler(this.OnDeleteGroup);
 			// 
@@ -146,6 +152,27 @@
 			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
 			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
 			this.imageList1.Images.SetKeyName(0, "Lock.ico");
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+			// 
+			// _tsmCopyGroup
+			// 
+			this._tsmCopyGroup.Name = "_tsmCopyGroup";
+			this._tsmCopyGroup.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+			this._tsmCopyGroup.Size = new System.Drawing.Size(180, 22);
+			this._tsmCopyGroup.Text = "Copy Group";
+			this._tsmCopyGroup.Click += new System.EventHandler(this.OnCopyGroup);
+			// 
+			// _tsmPasteGroup
+			// 
+			this._tsmPasteGroup.Name = "_tsmPasteGroup";
+			this._tsmPasteGroup.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+			this._tsmPasteGroup.Size = new System.Drawing.Size(180, 22);
+			this._tsmPasteGroup.Text = "Paste Group";
+			this._tsmPasteGroup.Click += new System.EventHandler(this.OnPasteGroup);
 			// 
 			// GroupTreeControl
 			// 
@@ -175,5 +202,8 @@
 		private System.Windows.Forms.ToolStripMenuItem _tsmAddGroup;
 		private System.Windows.Forms.ToolStripMenuItem _tsmEditGroup;
 		private System.Windows.Forms.ToolStripMenuItem _tmsDeleteGroup;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripMenuItem _tsmCopyGroup;
+		private System.Windows.Forms.ToolStripMenuItem _tsmPasteGroup;
 	}
 }
