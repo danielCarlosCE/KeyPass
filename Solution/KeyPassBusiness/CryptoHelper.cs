@@ -1,22 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace KeyPassBusiness
 {
 	class CryptoHelper
 	{
-
-		public static byte[] Encrypt(byte[] bytes)
+		/**
+		 * http://www.splinter.com.au/c-cryptography-encrypting-a-bunch-of-bytes/
+		 **/
+		public static byte[] Encrypt(byte[] input)
 		{
-			return null;
+			PasswordDeriveBytes pdb = new PasswordDeriveBytes("mykeypass", new byte[] { 0x43, 0x87, 0x23, 0x72 });
+			MemoryStream ms = new MemoryStream();
+			Aes aes = new AesManaged();
+			aes.Key = pdb.GetBytes(aes.KeySize / 8);
+			aes.IV = pdb.GetBytes(aes.BlockSize / 8);
+			CryptoStream cs = new CryptoStream(ms,
+			  aes.CreateEncryptor(), CryptoStreamMode.Write);
+			cs.Write(input, 0, input.Length);
+			cs.Close();
+			return ms.ToArray();
 		}
-
-		public static byte[] Decrypt(byte[] bytes)
+		public static byte[] Decrypt(byte[] input)
 		{
-			return null;
+			PasswordDeriveBytes pdb = new PasswordDeriveBytes("mykeypass", new byte[] { 0x43, 0x87, 0x23, 0x72 }); 
+			MemoryStream ms = new MemoryStream();
+			Aes aes = new AesManaged();
+			aes.Key = pdb.GetBytes(aes.KeySize / 8);
+			aes.IV = pdb.GetBytes(aes.BlockSize / 8);
+			CryptoStream cs = new CryptoStream(ms,
+			  aes.CreateDecryptor(), CryptoStreamMode.Write);
+			cs.Write(input, 0, input.Length);
+			cs.Close();
+			return ms.ToArray();
 		}
 
 	}

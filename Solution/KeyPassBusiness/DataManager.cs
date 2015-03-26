@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -22,12 +24,10 @@ namespace KeyPassBusiness
 			}
 		}
 
-
 		public static List<Group> ListGroups()
 		{
 			return _document.Groups;
 		}
-
 
 		public static bool NewDocument()
 		{
@@ -45,13 +45,25 @@ namespace KeyPassBusiness
 			}
 			catch (Exception e)
 			{
+				Console.Write(e.Message);
 				return false;
 			}
 		}
 
 		public static List<Group> OpenDocument(Stream stream)
 		{
-			XElement root = XElement.Load(stream);
+
+			byte[] cipherText;
+			using (MemoryStream ms = new MemoryStream())
+			{
+				stream.CopyTo(ms);
+				cipherText = ms.ToArray();
+			}
+			
+			string xml = System.Text.Encoding.ASCII.GetString(CryptoHelper.Decrypt(cipherText));
+
+			XElement root = XElement.Parse(xml);
+			
 			_document = new Document();
 			foreach (XElement element in root.Elements())
 			{
@@ -77,11 +89,11 @@ namespace KeyPassBusiness
 
 		private static void SaveAsXML(Stream stream)
 		{
-			using (stream)
-			{
+			
 				StreamWriter streamWriter = new StreamWriter(stream);
 				XmlDocument xmlDoc = new XmlDocument();
 
+				#region XmlParse
 				XmlNode rootNode = xmlDoc.CreateElement("groups");
 				xmlDoc.AppendChild(rootNode);
 				foreach (Group g in _document.Groups)
@@ -112,11 +124,14 @@ namespace KeyPassBusiness
 					}
 
 				}
+				#endregion
 
-
-
-				xmlDoc.Save(streamWriter);
-			}
+				stream.Close();
+				
+				byte[] buffer = Encoding.ASCII.GetBytes(xmlDoc.InnerXml);
+				string filePath = ((FileStream)(streamWriter.BaseStream)).Name;
+				File.WriteAllBytes(filePath, CryptoHelper.Encrypt(buffer));
+	
 		}
 
 		public static Group AddGroup(String name)
@@ -161,7 +176,6 @@ namespace KeyPassBusiness
 
 			return true;
 		}
-
 
 		public static Group AddkeyToGroup(Key key, Group group)
 		{

@@ -164,13 +164,16 @@ namespace KeyPassUserInterface
 			{
 				stream = StreamSaveFile();
 			}
-			if (stream != null && DataManager.SaveDocument(stream))
-			{
-				saveToolStripButton.Enabled = false;
-				saveToolStripMenuItem.Enabled = false;
+			
+				if (stream != null && DataManager.SaveDocument(stream))
+				{
+					saveToolStripButton.Enabled = false;
+					saveToolStripMenuItem.Enabled = false;
 
-			}
-			return stream != null;
+				}
+				return stream != null;
+
+			
 		}
 
 		private void OnSaveAsDocument(object sender, EventArgs e)
