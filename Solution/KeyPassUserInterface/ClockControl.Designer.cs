@@ -49,6 +49,7 @@
 			this.clockLabel.TabIndex = 0;
 			this.clockLabel.Text = "label1";
 			this.clockLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.clockLabel.Click += new System.EventHandler(this.OnClick);
 			// 
 			// ClockControl
 			// 

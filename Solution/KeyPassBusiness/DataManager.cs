@@ -136,6 +136,7 @@ namespace KeyPassBusiness
 		{
 			_document.Groups.Add(group);
 			CallEvent();
+			Log.log("Add Group: " + group.Name);
 			return group;
 		}
 
@@ -146,15 +147,17 @@ namespace KeyPassBusiness
 			
 			CallEvent();
 
+			Log.log("Edit Group: "+group.Name);
+
 			return group;
 		}
-
-
 
 		public static bool DeleteGroup(Group group)
 		{
 			_document.Groups.Remove(group);
 			CallEvent();
+
+			Log.log("Delete Group: " + group.Name);
 
 			return true;
 		}
@@ -165,6 +168,7 @@ namespace KeyPassBusiness
 			group.Keys.Add(key);
 			CallEvent();
 
+			Log.log("Add Key to Group: " + group.Name + " - title: " + key.Title);
 			return group;
 		}
 
@@ -172,6 +176,8 @@ namespace KeyPassBusiness
 		{
 			group.Keys.Remove(key);
 			CallEvent();
+
+			Log.log("Delete key from Group: " + group.Name + " - title: " + key.Title);
 
 			return true;
 		}
@@ -185,6 +191,8 @@ namespace KeyPassBusiness
 					int index = group.Keys.IndexOf(key);
 					group.Keys[index] = newkey;
 					CallEvent();
+					Log.log("Edit key in Group: " + group.Name +" - title: "+key.Title);
+
 					return newkey;
 
 				}

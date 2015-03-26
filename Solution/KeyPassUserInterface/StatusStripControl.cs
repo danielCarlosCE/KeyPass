@@ -1,4 +1,8 @@
-﻿using System.Windows.Forms;
+﻿using System.Diagnostics;
+using System.Windows.Forms;
+using KeyPassBusiness;
+using System.Collections.Generic;
+
 
 namespace KeyPassUserInterface
 {
@@ -16,5 +20,17 @@ namespace KeyPassUserInterface
 			labelTotalKeys.Text = "" + totalKeysSelected + " of " + totalkeys + " selected keys";
 
 		}
+
+		private void StatusStripControl_Load(object sender, System.EventArgs e)
+		{
+			Log.LogEvent += OnLog;
+		}
+
+		void OnLog(string message)
+		{
+			int i = _comboBoxLog.Items.Add(message);
+			_comboBoxLog.SelectedIndex = i;
+		}
+
 	}
 }

@@ -372,7 +372,7 @@ namespace KeyPassUserInterface
 			float x = 0.0f;
 			float y = offset;
 			float groupHeight = 70.0f;
-			float keyHeight = 30.0f;
+			float keyHeight = 20.0f;
 
 			List<Group> groups = DataManager.ListGroups();
 			

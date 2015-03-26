@@ -34,7 +34,7 @@
 			this.labelTotalKeys = new System.Windows.Forms.Label();
 			this.labelTotalGroups = new System.Windows.Forms.Label();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this._comboBoxLog = new System.Windows.Forms.ComboBox();
 			this.clockControl1 = new KeyPassUserInterface.ClockControl();
 			((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
 			this.tableLayoutPanel1.SuspendLayout();
@@ -55,19 +55,20 @@
 			resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
 			this.tableLayoutPanel1.Controls.Add(this.labelTotalGroups, 1, 0);
 			this.tableLayoutPanel1.Controls.Add(this.labelTotalKeys, 2, 0);
-			this.tableLayoutPanel1.Controls.Add(this.comboBox1, 0, 0);
+			this.tableLayoutPanel1.Controls.Add(this._comboBoxLog, 0, 0);
 			this.tableLayoutPanel1.Controls.Add(this.clockControl1, 3, 0);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			// 
-			// comboBox1
+			// _comboBoxLog
 			// 
-			resources.ApplyResources(this.comboBox1, "comboBox1");
-			this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Name = "comboBox1";
+			resources.ApplyResources(this._comboBoxLog, "_comboBoxLog");
+			this._comboBoxLog.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this._comboBoxLog.FormattingEnabled = true;
+			this._comboBoxLog.Name = "_comboBoxLog";
 			// 
 			// clockControl1
 			// 
+			this.clockControl1.Cursor = System.Windows.Forms.Cursors.Hand;
 			resources.ApplyResources(this.clockControl1, "clockControl1");
 			this.clockControl1.Name = "clockControl1";
 			// 
@@ -77,6 +78,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Name = "StatusStripControl";
+			this.Load += new System.EventHandler(this.StatusStripControl_Load);
 			((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.tableLayoutPanel1.PerformLayout();
@@ -91,7 +93,7 @@
 		private System.Windows.Forms.Label labelTotalKeys;
 		private System.Windows.Forms.Label labelTotalGroups;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.ComboBox _comboBoxLog;
 		private ClockControl clockControl1;
 	}
 }
