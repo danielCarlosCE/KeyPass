@@ -1,6 +1,9 @@
 ﻿using KeyPassBusiness;
 using KeyPassInfoObjects;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
@@ -11,6 +14,7 @@ namespace KeyPassUserInterface
 	{
 		private const string extension = ".mkp";
 		private const string _filter = "My Key Pass Files|*"+extension;
+		private PrintDocument _printDoc = new PrintDocument(); 
 
 		public MainForm()
 		{
@@ -22,6 +26,8 @@ namespace KeyPassUserInterface
 		{
 			Application.Idle += OnIdle;
 			DataManager.DataModifiedEvent += OnDataModified;
+			_printDoc.PrintPage += OnPrintPage;
+
 
 		}
 
@@ -325,7 +331,103 @@ namespace KeyPassUserInterface
 
 		}
 
+		private void OnPrintPreview(object sender, EventArgs e)
+		{
 
+			PrintPreviewDialog _printViewDialog = new PrintPreviewDialog();
+			((Form)_printViewDialog).WindowState = FormWindowState.Maximized;
+			_printViewDialog.Document = _printDoc;
+			_printViewDialog.ShowDialog();
+		}
+
+		
+
+		private void OnPrint(object sender, EventArgs e)
+		{
+			
+
+			PrintDialog dlg = new PrintDialog(); 
+			dlg.Document = _printDoc;
+			if (dlg.ShowDialog() != DialogResult.OK)
+				return; 
+
+			_printDoc.Print();
+
+
+		}
+
+		void OnPrintPage(object sender, PrintPageEventArgs e)
+		{
+			Graphics g = e.Graphics;
+			Font font = new Font("Times New Roman", 12);
+			StringFormat strFormat = new StringFormat();
+			// Horizontally Center-justify each line of text.
+			strFormat.Alignment = StringAlignment.Center;
+			// Center text (vertically) in the rectangle.
+			strFormat.LineAlignment = StringAlignment.Center;
+			strFormat.Trimming = StringTrimming.EllipsisCharacter;
+
+
+			float offset = 30.0f;
+			float x = 0.0f;
+			float y = offset;
+			float groupHeight = 70.0f;
+			float keyHeight = 30.0f;
+
+			List<Group> groups = DataManager.ListGroups();
+			
+
+			for (int i = 0; i < groups.Count ;i++ )
+			{
+				RectangleF groupRect = new RectangleF(x, y, (e.PageBounds.Size.Width), groupHeight);
+				g.FillRectangle(Brushes.Navy, groupRect);
+
+				g.DrawString(groups[i].Name, font, new
+				   SolidBrush(Color.White), groupRect, strFormat);
+				g.DrawRectangle(new Pen(Color.Navy), groupRect.X, groupRect.Y, groupRect.Width,
+					   groupRect.Height);
+
+				List<Key> keys = groups[i].Keys;
+
+				y += groupHeight;
+
+				var props = new Key().GetType().GetProperties();
+				float attWidht = (e.PageBounds.Size.Width / props.Length);
+
+				for (int column = 0; column < props.Length; column++, x += attWidht)
+				{
+					string header = (string)props[column].Name;
+					RectangleF headerRect = new RectangleF(x, y, attWidht , keyHeight);
+					g.FillRectangle(Brushes.LightBlue, headerRect);
+					g.DrawString(header, font, new SolidBrush(Color.Blue), headerRect, strFormat);
+				}
+
+				x = 0.0f;
+				y += keyHeight;
+
+				for (int row = 0; row < keys.Count; row++)
+				{
+					Key key = keys[row];
+
+					for (int column = 0; column < props.Length; column++, x += attWidht)
+					{
+						string value = (string) key.GetType().GetProperties()[column].GetValue(key, null);
+						RectangleF keyRect = new RectangleF(x, y, attWidht , keyHeight);
+						g.DrawString(value, font, new SolidBrush(Color.Blue), keyRect, strFormat);
+						g.DrawRectangle(new Pen(Color.Red), keyRect.X, keyRect.Y, keyRect.Width, keyRect.Height);
+					}
+					x = 0.0f;
+					y += keyHeight;
+					
+				}
+
+				y += offset;
+			}
+
+			e.HasMorePages = false;
+				
+
+		}
 
 
 

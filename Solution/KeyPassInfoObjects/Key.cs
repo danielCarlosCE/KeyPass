@@ -11,6 +11,27 @@ namespace KeyPassInfoObjects
 		private string _url;
 		private string _notes;
 
+
+		public string Title
+		{
+			get { return _title; }
+			set { _title = value; }
+		}
+		public string UserName
+		{
+			get { return _username; }
+			set { _username = value; }
+		}
+
+
+
+		public string Password
+		{
+			get { return _password; }
+			set { _password = value; }
+		}
+
+
 		public string URL
 		{
 			get { return _url; }
@@ -24,24 +45,10 @@ namespace KeyPassInfoObjects
 		}
 
 
-		public string Password
-		{
-			get { return _password; }
-			set { _password = value; }
-		}
 		
-		public string UserName
-		{
-			get { return _username; }
-			set { _username = value; }
-		}
+		
 		
 
-		public string Title
-		{
-			get { return _title; }
-			set { _title = value; }
-		}
 
 
 	}
