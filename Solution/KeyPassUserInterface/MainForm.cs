@@ -179,10 +179,15 @@ namespace KeyPassUserInterface
 		private void OnSaveAsDocument(object sender, EventArgs e)
 		{
 			Stream stream = StreamSaveFile();
-			if (stream != null && DataManager.SaveDocument(stream))
+			using (stream)
 			{
-				saveToolStripButton.Enabled = false;
-				saveToolStripMenuItem.Enabled = false;
+			
+				if (stream != null && DataManager.SaveDocument(stream))
+				{
+					saveToolStripButton.Enabled = false;
+					saveToolStripMenuItem.Enabled = false;
+				}
+
 			}
 		}
 
@@ -227,8 +232,10 @@ namespace KeyPassUserInterface
 				{
 					if ((stream = openFileDialog.OpenFile()) != null)
 					{
-
-						UpdateInterfaceOpenDocument(openFileDialog.FileName, stream);
+						using (stream)
+						{
+							UpdateInterfaceOpenDocument(openFileDialog.FileName, stream);
+						}
 
 					}
 				}
@@ -246,6 +253,10 @@ namespace KeyPassUserInterface
 				saveAsToolStripMenuItem.Enabled = true;
 				saveToolStripButton.Enabled = false;
 				saveToolStripMenuItem.Enabled = false;
+			}
+			else
+			{
+				MessageBox.Show("Sorry, but the application only accepts valid " + extension + " files.");
 			}
 		}
 
@@ -302,32 +313,29 @@ namespace KeyPassUserInterface
 
 		private void OnDragEnter(object sender, DragEventArgs e)
 		{
-			Console.WriteLine("drag enter");
-
-			if (e.Data.GetDataPresent(DataFormats.FileDrop))
+			if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
+				string fileName = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+				Console.WriteLine(fileName);
+				if (Path.GetExtension(fileName).ToLower() != extension)
+				{
+					e.Effect = DragDropEffects.None;
+					return;
+				}
 				e.Effect = DragDropEffects.All;
-			else
+			}else
 				e.Effect = DragDropEffects.None;
 		}
 
 		private void OnDragDrop(object sender, DragEventArgs e)
 		{
-			Console.WriteLine("drag drop");
-
 			
-
 			if (!CheckIfWantSaveChanges())
 				return;
 
 			string fileName = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-			Console.WriteLine(fileName);
-			if(Path.GetExtension(fileName).ToLower()!=extension){
-				MessageBox.Show("Sorry, but the application only accepts "+extension+" files.");
-				return;
-			}
+			
 
-			using (FileStream
-			fileStream = new FileStream(fileName, FileMode.Open))
+			using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
 			{
 				UpdateInterfaceOpenDocument(fileName, fileStream);
 			}

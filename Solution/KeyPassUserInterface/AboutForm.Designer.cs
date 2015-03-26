@@ -32,11 +32,11 @@
 			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.button1 = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
+			this.button1 = new System.Windows.Forms.Button();
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.tableLayoutPanel1.SuspendLayout();
@@ -69,16 +69,6 @@
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(275, 182);
 			this.tableLayoutPanel1.TabIndex = 1;
-			// 
-			// button1
-			// 
-			this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.button1.Location = new System.Drawing.Point(339, 338);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(116, 45);
-			this.button1.TabIndex = 3;
-			this.button1.Text = "OK";
-			this.button1.UseVisualStyleBackColor = true;
 			// 
 			// label1
 			// 
@@ -120,6 +110,16 @@
 			this.label4.TabIndex = 3;
 			this.label4.Text = "Boston University";
 			// 
+			// button1
+			// 
+			this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.button1.Location = new System.Drawing.Point(339, 338);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(116, 45);
+			this.button1.TabIndex = 3;
+			this.button1.Text = "OK";
+			this.button1.UseVisualStyleBackColor = true;
+			// 
 			// textBox1
 			// 
 			this.textBox1.Location = new System.Drawing.Point(180, 204);
@@ -131,7 +131,7 @@
 			this.textBox1.TabIndex = 4;
 			this.textBox1.Text = resources.GetString("textBox1.Text");
 			// 
-			// About
+			// AboutForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -143,7 +143,7 @@
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Controls.Add(this.pictureBox1);
 			this.DoubleBuffered = true;
-			this.Name = "About";
+			this.Name = "AboutForm";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "About";

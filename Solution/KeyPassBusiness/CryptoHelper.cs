@@ -8,6 +8,7 @@ namespace KeyPassBusiness
 	class CryptoHelper
 	{
 		/**
+		 * code from:
 		 * http://www.splinter.com.au/c-cryptography-encrypting-a-bunch-of-bytes/
 		 **/
 		public static byte[] Encrypt(byte[] input)

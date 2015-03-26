@@ -52,8 +52,7 @@ namespace KeyPassBusiness
 
 		public static List<Group> OpenDocument(Stream stream)
 		{
-
-			byte[] cipherText;
+			try { 			byte[] cipherText;
 			using (MemoryStream ms = new MemoryStream())
 			{
 				stream.CopyTo(ms);
@@ -83,6 +82,10 @@ namespace KeyPassBusiness
 			}
 
 			return _document.Groups;
+			}catch(Exception ex){
+				Console.WriteLine(ex.Message);
+				return null;
+			}
 
 
 		}
